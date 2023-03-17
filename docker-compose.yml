@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+
+  bot:
+    build:
+      context: .
+      dockerfile: ./docker/bot/Dockerfile
+    container_name: bot
+    env_file:
+      - .env
