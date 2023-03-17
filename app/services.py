@@ -67,28 +67,40 @@ def generate_code_report(framework):
     return results
 
 
+def get_latest_comment_date(mr):
+    latest_comment_date = None
+    for comment in mr.notes.list():
+        comment_date = datetime.datetime.strptime(
+            comment.created_at, "%Y-%m-%dT%H:%M:%S.%fZ"
+        )
+        if not latest_comment_date or comment_date > latest_comment_date:
+            latest_comment_date = comment_date
+    return latest_comment_date
+
+
+def get_latest_commit_date(mr):
+    latest_commit_date = None
+    for commit in mr.commits():
+        commit_date = datetime.datetime.strptime(
+            commit.created_at, "%Y-%m-%dT%H:%M:%S.%fZ"
+        )
+        if not latest_commit_date or commit_date > latest_commit_date:
+            latest_commit_date = commit_date
+    return latest_commit_date
+
+
 def can_comment(mr):
     comments = mr.notes.list()
     if comments:
-        latest_comment = comments[-1]
-        latest_comment_date = datetime.datetime.strptime(
-            latest_comment.created_at.split(".")[0], "%Y-%m-%dT%H:%M:%S"
-        )
-        for commit in mr.commits():
-            commit_date = datetime.datetime.strptime(
-                commit.created_at, "%Y-%m-%dT%H:%M:%S.%fZ"
-            )
-            if (
-                latest_comment_date > commit_date
-                and settings.BOT_NAME not in latest_comment.body
-            ):
-                return False
-    return True
+        latest_comment_date = get_latest_comment_date(mr)
+        latest_commit_date = get_latest_commit_date(mr)
+        return latest_commit_date > latest_comment_date
+    else:
+        return True
 
 
-def comment_merge_requests(with_new_file=False):
+def comment_merge_requests():
     chain_code = models.get_chain_for_code_assistant()
-    chain_code_file = models.get_chain_for_code_assistant_with_file()
 
     gitlab_client = utils.get_gitlab_client()
     project = gitlab_client.get_project()
@@ -99,18 +111,6 @@ def comment_merge_requests(with_new_file=False):
 
     for mr in merge_requests:
         if can_comment(mr):
-            improvements = []
-            for change in mr.changes()["changes"]:
-                if with_new_file:
-                    file_content = project.files.get(
-                        file_path=change["new_path"], ref=mr.source_branch
-                    ).decode()
-                    message = chain_code_file.run(
-                        changes=change["diff"], file_content=file_content
-                    )
-                else:
-                    message = chain_code.run(changes=change["diff"])
-                improvements.append(message)
-
-            improvements = "\n".join(improvements)
-            mr.notes.create({"body": f"# {settings.BOT_NAME} Says \n {improvements}"})
+            changes = "\n".join([change["diff"] for change in mr.changes()["changes"]])
+            message = chain_code.run(changes=changes)
+            mr.notes.create({"body": f"# {settings.BOT_NAME} Says \n {message}"})
