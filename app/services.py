@@ -80,7 +80,7 @@ def can_comment(mr):
             )
             if (
                 latest_comment_date > commit_date
-                and settings.BOT_NAME in latest_comment.body
+                and settings.BOT_NAME not in latest_comment.body
             ):
                 return False
     return True
