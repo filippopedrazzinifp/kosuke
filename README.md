@@ -39,17 +39,11 @@ Run `main.py` with one of the following parameters
 
 Frameworks currently supported:
 
-- `django` 
+- `django`
 
 Provide date in the following format
 
 - ``
-
-## Demo
-
-You can check how the bot works here:
-
-https://user-images.githubusercontent.com/29598954/220421332-545419de-bd2e-4fb4-9805-50ee77f184c2.MP4
 
 ## License
 
