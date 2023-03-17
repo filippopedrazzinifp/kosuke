@@ -1,5 +1,7 @@
 # Kosuke
 
+> Are you a better Software Engineer than ChatGPT?
+
 Kosuke is an asynchronous code assistant. It can perform code reviews, analyze entire codebases and generate descriptive changelogs for marketing purposes.
 ## Run Locally
 
@@ -34,17 +36,22 @@ docker-compose up --build -d
 Run `main.py` with one of the following parameters
 
     --task {anaylyze|change_log|code_review}
-    --framework {framework}
-    --date {date}
+    --framework {django}
+    --since_date {%Y-%m-%d}
 
-Frameworks currently supported:
+## Frameworks Currently Supported
 
 - `django`
-
-Provide date in the following format
-
-- ``
 
 ## License
 
 This project is licensed under the MIT License.
+
+## Example Usage
+
+    python main.py --task analyze --framework django
+
+## Roadmap
+
+- [ ] Index all the files in Pinecone in order to deliver talk to your code use case
+- [ ] Index all the project documentation in Pinecone

@@ -7,5 +7,6 @@ services:
       context: .
       dockerfile: ./docker/bot/Dockerfile
     container_name: bot
+    platform: linux/x86_64
     env_file:
       - .env
