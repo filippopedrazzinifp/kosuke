@@ -112,5 +112,8 @@ def comment_merge_requests():
     for mr in merge_requests:
         if can_comment(mr):
             changes = "\n".join([change["diff"] for change in mr.changes()["changes"]])
-            message = chain_code.run(changes=changes)
-            mr.notes.create({"body": f"# {settings.BOT_NAME} Says \n {message}"})
+            try:
+                message = chain_code.run(changes=changes)
+                mr.notes.create({"body": f"# {settings.BOT_NAME} Says \n {message}"})
+            except Exception as e:
+                logger.error(f"Error while running chain for {mr.title}: {e}")
