@@ -1,7 +1,5 @@
-import tiktoken
-
-from app.clients import gitlab
 from app import settings
+from app.clients import gitlab
 
 
 def get_gitlab_client():
@@ -14,8 +12,18 @@ def get_gitlab_client():
 
 def filter_files(files, framework):
     if framework == "django":
-        exclude_patterns = ["__init__.py", "settings", "urls.py",
-                            "wsgi.py", "asgi.py", "manage.py", "apps.py", "websocket", "celery", "migrations"]
+        exclude_patterns = [
+            "__init__.py",
+            "settings",
+            "urls.py",
+            "wsgi.py",
+            "asgi.py",
+            "manage.py",
+            "apps.py",
+            "websocket",
+            "celery",
+            "migrations",
+        ]
         return [
             file
             for file in files

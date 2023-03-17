@@ -1,13 +1,9 @@
 import tiktoken
-
 from langchain.chains import LLMChain
-from langchain.chains.summarize import load_summarize_chain
 from langchain.docstore.document import Document
-from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.llms import OpenAIChat
 from langchain.prompts import PromptTemplate
 from langchain.text_splitter import TokenTextSplitter
-from langchain.vectorstores import Pinecone
 
 
 def get_tokenizer():
@@ -44,14 +40,14 @@ def get_chain_for_changelog_bullet_points():
 
 def get_chain_for_code_report_single_file():
     template = """
-    You are a code assistant. Your objective is to improve code quality, discover potential bugs, and suggest improvements. 
+    You are a code assistant. Your objective is to improve code quality, discover potential bugs, and suggest improvements. # noqa E501
     You are given the following file and raw content.
 
     File: {file_path}
     =========
     Content: {content}
     =========
-    Return the answer in bullet points. IMPORTANT: write only the most critical and most important improvements. If there are not critical problems or improvements, just return an empty string.
+    Return the answer in bullet points. IMPORTANT: write only the most critical and most important improvements. If there are not critical problems or improvements, just return an empty string. # noqa E501
     """
     prompt = PromptTemplate(
         input_variables=["file_path", "content"],
@@ -63,7 +59,7 @@ def get_chain_for_code_report_single_file():
 
 def get_chain_for_code_report_single_file_refactored():
     template = """
-    Given the following file content, refactor the code based on the improvements suggested by the code assistant.
+    Given the following file content, refactor the code based on the improvements suggested by the code assistant. # noqa E501
 
     File: {file_path}
     =========
@@ -100,7 +96,7 @@ def get_chain_for_code_report():
 
 def get_chain_for_code_assistant_with_file():
     template = """
-    You are a code assistant. Your objective is to improve code quality, discover potential bugs, and suggest improvements. 
+    You are a code assistant. Your objective is to improve code quality, discover potential bugs, and suggest improvements. # noqa E501
     You are given the following changes of a merge request and the corresponding new file:
 
     New File: {file_content}
@@ -108,7 +104,7 @@ def get_chain_for_code_assistant_with_file():
     Changes: {changes}
     =========
 
-    Provide suggestions in order to adress the most critical issues and improve performances.
+    Provide suggestions in order to adress the most critical issues and improve performances. # noqa E501
     """
     prompt = PromptTemplate(
         input_variables=["changes", "file_content"],
@@ -120,13 +116,13 @@ def get_chain_for_code_assistant_with_file():
 
 def get_chain_for_code_assistant():
     template = """
-    You are a code assistant. Your objective is to improve code quality, discover potential bugs, and suggest improvements. 
+    You are a code assistant. Your objective is to improve code quality, discover potential bugs, and suggest improvements. # noqa E501
     You are given the following changes of a merge request and the corresponding new file:
 
     Changes: {changes}
     =========
 
-    Provide suggestions in order to adress the most critical issues and improve performances.
+    Provide suggestions in order to adress the most critical issues and improve performances. # noqa E501
     """
     prompt = PromptTemplate(
         input_variables=["changes"],
@@ -138,7 +134,7 @@ def get_chain_for_code_assistant():
 
 def get_chain_for_summarization():
     template = """
-    You are a code assistant. Summarize the following improvements in order to fit in a merge request comment.
+    You are a code assistant. Summarize the following improvements in order to fit in a merge request comment. # noqa E501
 
     Improvements: {improvements}
     """
