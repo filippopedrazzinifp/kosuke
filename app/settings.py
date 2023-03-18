@@ -19,3 +19,13 @@ GITLAB_RELEASE_BRANCH_NAME = os.getenv("GITLAB_RELEASE_BRANCH_NAME")
 # OpenAI
 # -------------------------------------------------------------------------------
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+OPENAI_MAX_TOKENS = 8000
+
+# Pinecone
+# -------------------------------------------------------------------------------
+PINECONE_API_KEY = os.getenv("PINECONE_API_KEY")
+PINECONE_INDEX_NAME = os.getenv("PINECONE_INDEX_NAME")
+
+# Search
+# -------------------------------------------------------------------------------
+SEARCH_DISTANCE = 0.9

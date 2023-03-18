@@ -4,4 +4,5 @@ openai==0.27.0
 tiktoken==0.2.0
 langchain==0.0.98
 transformers==4.26.1
-python-dotenv==1.0.0 
+python-dotenv==1.0.0
+pinecone-client==2.2.1

@@ -15,6 +15,11 @@ Kosuke is an asynchronous code assistant that can perform code reviews, analyze 
 # ------------------------------------------------------------------------------
 OPENAI_API_KEY=
 
+# Pinecone
+# ------------------------------------------------------------------------------
+PINECONE_API_KEY=
+PINECONE_INDEX_NAME=
+
 # GitLab
 # ------------------------------------------------------------------------------
 GITLAB_ACCESS_TOKEN=
@@ -38,7 +43,10 @@ Kosuke provides several one-shot commands that you can use to perform different 
 
 - `analyze`: analyzes the codebase and provides feedback on potential issues
 - `change_log`: generates a descriptive changelog for marketing purposes
-    code_review: reviews the code and provides suggestions for improvement
+- `code_review`: reviews the code and provides suggestions for improvement
+- `index_code_base`: indexes the codebase for talk to your code use case
+- `init_pinecone`: initializes Pinecone for use with Kosuke
+- `chat`: generates a response to a user question based on your indexed codebase
 
 Each command can be run with the following optional parameters:
 
@@ -57,17 +65,26 @@ This project is licensed under the MIT License.
 
     python main.py --task analyze --framework django
 
-## Roadmap
+    python main.py --task index_code_base
 
-- [ ] Index all the files in Pinecone in order to deliver talk to your code use case
-- [ ] Index all the project documentation in Pinecone
-- [ ] Support for more programming languages and frameworks
-- [ ] Integration with popular code repositories like GitHub and Bitbucket
-- [ ] Automated testing and bug tracking
-- [ ] Natural language processing to analyze code-related chat or email conversations
-- [ ] Accessibility analysis for web applications
+    python main.py --task init_pinecone
 
-## More Ideas
+    python main.py --task chat --question "How can I optimize my database queries?"
+
+    python main.py --task code_review
+
+## Roadmap & Ideas
+
+* Automated testing and bug tracking (merge request)
+    * Automatically create test cases
+    * Automatically check for bugs
+* Extract design guidelines from Picture
+* Build a landing page with Ghost
+* Update the documentation based on the commits - define the default framework. Read the docs?
+* Fine tune using tickets and code
+* Build Django auth with chatgpt
+* Code migration
+    * Translate a codebase from one framework to another one
 
 - Security analysis: Kosuke could be extended to perform security analysis on code, including checking for common vulnerabilities and suggesting improvements to prevent attacks.
 - Code refactoring: Kosuke could be used to help refactor code, including identifying redundant or poorly structured code and suggesting better alternatives.

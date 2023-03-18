@@ -1,6 +1,9 @@
 import datetime
 import logging
 
+import pinecone
+from langchain.docstore.document import Document
+
 from app import models, settings, utils
 
 logger = logging.getLogger(__name__)
@@ -40,7 +43,7 @@ def generate_code_report(framework):
     files = utils.filter_files(files, framework)
 
     results = []
-    for file in files:
+    for file in files[0:10]:
         try:
             file_content = project.files.get(
                 file_path=file["path"], ref=project.default_branch
@@ -117,3 +120,50 @@ def comment_merge_requests():
                 mr.notes.create({"body": f"# {settings.BOT_NAME} Says \n {message}"})
             except Exception as e:
                 logger.error(f"Error while running chain for {mr.title}: {e}")
+
+
+def file_exists(file_path):
+    index = pinecone.Index(settings.PINECONE_INDEX_NAME)
+    fetch_response = index.query(
+        vector=[0 for i in range(1536)],
+        top_k=10,
+        namespace="",
+        filter={"file_path": file_path},
+        include_values=True,
+        include_metadata=True,
+    )
+    return len(fetch_response["matches"]) > 0
+
+
+def index_code_base():
+    vectorstore = models.get_vectorstore()
+    gitlab_client = utils.get_gitlab_client()
+    files = gitlab_client.get_project_files()
+    project = gitlab_client.get_project()
+
+    for file in files:
+        file_content = project.files.get(
+            file_path=file["path"], ref=project.default_branch
+        ).decode()
+        file_content = f"{file['path']} \n {file_content}"
+        doc = Document(page_content=file_content, metadata={"file_path": file["path"]})
+
+        if not file_exists(file["path"]):
+            try:
+                vectorstore.add_texts([doc.page_content], [doc.metadata])
+                logger.info(f"Indexed file {file['path']}.")
+            except Exception as e:
+                logger.error(f"Error while indexing file {file['path']}: {e}")
+
+    logger.info("Indexed all the codebase.")
+
+
+def generate_response(question):
+    vectorstore = models.get_vectorstore()
+    docs = vectorstore.similarity_search(
+        question, search_distance=settings.SEARCH_DISTANCE
+    )
+    docs = utils.reduce_number_of_docs(docs[:5])
+    files = "\n".join([doc.page_content for doc in docs])
+    chain = models.get_chain_for_developer_copilot()
+    return chain.run(files=files, question=question)

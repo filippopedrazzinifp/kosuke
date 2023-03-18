@@ -1,9 +1,14 @@
+import pinecone
 import tiktoken
 from langchain.chains import LLMChain
 from langchain.docstore.document import Document
+from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.llms import OpenAIChat
 from langchain.prompts import PromptTemplate
 from langchain.text_splitter import TokenTextSplitter
+from langchain.vectorstores import Pinecone
+
+from app import settings
 
 
 def get_tokenizer():
@@ -12,6 +17,23 @@ def get_tokenizer():
 
 def get_openai_llm():
     return OpenAIChat(model_name="gpt-4", temperature=0)
+
+
+def get_vectorstore():
+    pinecone.init(api_key=settings.PINECONE_API_KEY, environment="us-east-1-aws")
+    index = pinecone.Index(settings.PINECONE_INDEX_NAME)
+    embeddings = OpenAIEmbeddings()
+    return Pinecone(index, embeddings.embed_query, "text")
+
+
+def init_pinecone():
+    pinecone.init(api_key=settings.PINECONE_API_KEY, environment="us-east-1-aws")
+    pinecone.delete_index(settings.PINECONE_INDEX_NAME)
+    Pinecone.from_documents(
+        [Document(page_content="Hello World")],
+        OpenAIEmbeddings(),
+        index_name=settings.PINECONE_INDEX_NAME,
+    )
 
 
 def preprocess_text(text):
@@ -126,6 +148,26 @@ def get_chain_for_code_assistant():
     """
     prompt = PromptTemplate(
         input_variables=["changes"],
+        template=template,
+    )
+    llm = get_openai_llm()
+    return LLMChain(llm=llm, prompt=prompt, verbose=True)
+
+
+def get_chain_for_developer_copilot():
+    template = """
+    You are a code assistant. Your objective is to help developers being more productive, improve code and adress potential bugs and critical issues. You are given the following files and question. # noqa E501
+
+    Files: {files}
+    =========
+
+    Question: {question}
+    =========
+
+    Generate the answer in markdown format.
+    """
+    prompt = PromptTemplate(
+        input_variables=["files", "question"],
         template=template,
     )
     llm = get_openai_llm()
