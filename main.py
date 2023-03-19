@@ -29,7 +29,7 @@ def main():
         print(response)
     elif args.task == "code_review":
         while True:
-            services.comment_merge_requests()
+            services.comment_pull_requests()
             time.sleep(60)
     else:
         raise ValueError("Invalid task.")

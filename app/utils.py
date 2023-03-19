@@ -28,6 +28,7 @@ def get_git_client():
 
 
 def filter_files(files, framework):
+    python_files = [f for f in files if f["path"].endswith(".py")]
     if framework == "django":
         exclude_patterns = [
             "__init__.py",
@@ -43,10 +44,10 @@ def filter_files(files, framework):
         ]
         return [
             file
-            for file in files
+            for file in python_files
             if all(pattern not in file["path"] for pattern in exclude_patterns)
         ]
-    return files
+    return python_files
 
 
 def reduce_number_of_docs(docs):
