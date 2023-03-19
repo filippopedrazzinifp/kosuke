@@ -1,5 +1,86 @@
 # Kosuke
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kosuke Project</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            color: #FFF;
+            background: linear-gradient(135deg, #212121 0%, #2C2F33 100%);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .container {
+            max-width: 800px;
+            padding: 2rem;
+            background-color: rgba(44, 47, 51, 0.8);
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #8BC34A;
+        }
+
+        p {
+            font-size: 1.2rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: #8BC34A;
+            border-radius: 50%;
+            animation: particle-animation 20s linear infinite;
+        }
+
+        @keyframes particle-animation {
+            0% {
+                transform: translate(calc(-50vw + 100vw * var(--x)), calc(-50vh + 100vh * var(--y))) scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(calc(-50vw + 100vw * var(--x)), calc(-50vh + 100vh * var(--y))) scale(1);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Kosuke: Asynchronous Code Assistant</h1>
+        <p>Revolutionizing Software Development with AI</p>
+    </div>
+
+    <script>
+        for (let i = 0; i < 100; i++) {
+            const particle = document.createElement("div");
+            particle.className = "particle";
+            particle.style.setProperty("--x", Math.random());
+            particle.style.setProperty("--y", Math.random());
+            particle.style.setProperty("--delay", Math.random() * 20 + "s");
+            document.body.appendChild(particle);
+        }
+    </script>
+</body>
+</html>
+
 > Are you a better Software Engineer than ChatGPT?
 
 Kosuke is an asynchronous code assistant that can perform code reviews, analyze entire codebases, and generate descriptive changelogs for marketing purposes. It's designed to help developers improve their code quality and productivity.
@@ -75,6 +156,9 @@ This project is licensed under the MIT License.
 
 ## Roadmap & Ideas
 
+* Integrate Github
+* Build landing page using ghost
+
 * Automated testing and bug tracking (merge request)
     * Automatically create test cases
     * Automatically check for bugs
@@ -83,8 +167,10 @@ This project is licensed under the MIT License.
 * Update the documentation based on the commits - define the default framework. Read the docs?
 * Fine tune using tickets and code
 * Build Django auth with chatgpt
+    * Include serpapis and content online to generate the response
 * Code migration
     * Translate a codebase from one framework to another one
+* Fetch latest requirements version when generating code
 
 - Security analysis: Kosuke could be extended to perform security analysis on code, including checking for common vulnerabilities and suggesting improvements to prevent attacks.
 - Code refactoring: Kosuke could be used to help refactor code, including identifying redundant or poorly structured code and suggesting better alternatives.
