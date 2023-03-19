@@ -2,10 +2,12 @@ import logging
 
 import gitlab
 
+from app.clients import git
+
 logger = logging.getLogger(__name__)
 
 
-class GitlabClient:
+class GitlabClient(git.GitClient):
     def __init__(self, access_token, project_name, branch_name):
         self.gl = gitlab.Gitlab(
             "https://gitlab.com", private_token=access_token, per_page=200
@@ -36,7 +38,7 @@ class GitlabClient:
             files.extend(tree)
             page += 1
 
-        python_files = [f for f in files if f['path'].endswith('.py')]
+        python_files = [f for f in files if f["path"].endswith(".py")]
         return python_files
 
     def get_project(self):

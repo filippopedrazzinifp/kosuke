@@ -11,10 +11,17 @@ FRAMEWORK = os.getenv("FRAMEWORK")
 
 # Gitlab
 # -------------------------------------------------------------------------------
-GITLAB_ACCESS_TOKEN = os.getenv("GITLAB_ACCESS_TOKEN")
+GITLAB_ACCESS_TOKEN = os.getenv("GITLAB_ACCESS_TOKEN", default=None)
 GITLAB_PROJECT_NAME = os.getenv("GITLAB_PROJECT_NAME")
 GITLAB_BRANCH_NAME = os.getenv("GITLAB_BRANCH_NAME")
 GITLAB_RELEASE_BRANCH_NAME = os.getenv("GITLAB_RELEASE_BRANCH_NAME")
+
+# Github
+# -------------------------------------------------------------------------------
+GITHUB_ACCESS_TOKEN = os.getenv("GITHUB_ACCESS_TOKEN", default=None)
+GITHUB_PROJECT_NAME = os.getenv("GITHUB_PROJECT_NAME")
+GITHUB_BRANCH_NAME = os.getenv("GITHUB_BRANCH_NAME")
+GITHUB_RELEASE_BRANCH_NAME = os.getenv("GITHUB_RELEASE_BRANCH_NAME")
 
 # OpenAI
 # -------------------------------------------------------------------------------

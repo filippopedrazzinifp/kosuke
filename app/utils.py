@@ -1,5 +1,5 @@
 from app import models, settings
-from app.clients import gitlab
+from app.clients import github, gitlab
 
 
 def get_gitlab_client():
@@ -8,6 +8,23 @@ def get_gitlab_client():
         settings.GITLAB_PROJECT_NAME,
         settings.GITLAB_BRANCH_NAME,
     )
+
+
+def get_github_client():
+    return github.GithubClient(
+        settings.GITHUB_ACCESS_TOKEN,
+        settings.GITHUB_PROJECT_NAME,
+        settings.GITHUB_BRANCH_NAME,
+    )
+
+
+def get_git_client():
+    if settings.GITLAB_ACCESS_TOKEN is not None:
+        return get_gitlab_client()
+    elif settings.GITHUB_ACCESS_TOKEN is not None:
+        return get_github_client()
+    else:
+        raise ValueError("No git client configured")
 
 
 def filter_files(files, framework):

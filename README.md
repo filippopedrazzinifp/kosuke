@@ -1,8 +1,5 @@
 # Kosuke
 
-<h1 style="font-size: 2.5rem; margin-bottom: 1rem; color: #8BC34A;">Kosuke: Asynchronous Code Assistant</h1>
-<p style="font-size: 1.2rem; line-height: 1.5;margin-bottom: 1rem;">Revolutionizing Software Development with AI</p>
-
 > Are you a better Software Engineer than ChatGPT?
 
 Kosuke is an asynchronous code assistant that can perform code reviews, analyze entire codebases, and generate descriptive changelogs for marketing purposes. It's designed to help developers improve their code quality and productivity.

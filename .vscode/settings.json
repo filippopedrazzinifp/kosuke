@@ -16,4 +16,5 @@
     ],
     "python.testing.pytestEnabled": false,
     "python.testing.unittestEnabled": true,
+    "docwriter.style": "Auto-detect",
 }
