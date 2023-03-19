@@ -1,11 +1,7 @@
 # Kosuke
 
-<body style="font-family: Arial, sans-serif; color: #FFF; background: linear-gradient(135deg, #212121 0%, #2C2F33 100%); margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; position: relative;">
-    <div style="max-width: 800px; padding: 2rem; background-color: rgba(44, 47, 51, 0.8); border-radius: 10px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5); text-align: center;">
-        <h1 style="font-size: 2.5rem; margin-bottom: 1rem; color: #8BC34A;">Kosuke: Asynchronous Code Assistant</h1>
-        <p style="font-size: 1.2rem; line-height: 1.5;margin-bottom: 1rem;">Revolutionizing Software Development with AI</p>
-    </div>
-</body>
+<h1 style="font-size: 2.5rem; margin-bottom: 1rem; color: #8BC34A;">Kosuke: Asynchronous Code Assistant</h1>
+<p style="font-size: 1.2rem; line-height: 1.5;margin-bottom: 1rem;">Revolutionizing Software Development with AI</p>
 
 > Are you a better Software Engineer than ChatGPT?
 
