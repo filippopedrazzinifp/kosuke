@@ -87,6 +87,8 @@ This project is licensed under the MIT License.
     * File deleted
     * File created
     * File changed
+* Similarity search for pinecone based on score
+* Don't restrict on django, but include python in general
 * Create GitHub action to run tests
 * Fine tune codebase with issues and code
 * Create and run test cases
