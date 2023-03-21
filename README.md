@@ -64,10 +64,6 @@ Each command can be run with the following optional parameters:
 
 Kosuke currently supports the `django` framework, which is a popular web framework for Python.
 
-## License
-
-This project is licensed under the MIT License.
-
 ## Example Usage
 
     python main.py --task analyze --framework django
@@ -80,44 +76,6 @@ This project is licensed under the MIT License.
 
     python main.py --task code_review
 
-## Roadmap & Ideas
+## License
 
-* Integrate GitHub
-* Handle all the different types of changes
-    * File deleted
-    * File created
-    * File changed
-* Similarity search for pinecone based on score
-* Don't restrict on django, but include python in general
-* Create GitHub action to run tests
-* Fine tune codebase with issues and code
-* Create and run test cases
-
----
-
-* Build landing page using ghost
-* Automated testing and bug tracking (merge request)
-    * Automatically create test cases
-    * Automatically check for bugs
-* Extract design guidelines from Picture
-* Build a landing page with Ghost
-* Update the documentation based on the commits - define the default framework. Read the docs?
-* Build Django auth with chatgpt
-    * Include serpapis and content online to generate the response
-* Code migration
-    * Translate a codebase from one framework to another one
-* Fetch latest requirements version when generating code
-
----
-
-- Security analysis: Kosuke could be extended to perform security analysis on code, including checking for common vulnerabilities and suggesting improvements to prevent attacks.
-- Code refactoring: Kosuke could be used to help refactor code, including identifying redundant or poorly structured code and suggesting better alternatives.
-- Code optimization: In addition to suggesting algorithmic improvements, Kosuke could help optimize code for performance and resource usage by identifying areas of code that are particularly resource-intensive.
-- Code generation: Kosuke could be used to generate code based on natural language descriptions or user input, potentially helping developers automate repetitive tasks.
-- Documentation translation: Kosuke could be used to automatically translate code documentation into multiple languages, making it easier for teams working in different countries or regions to collaborate.
-- Machine learning integration: Kosuke could be integrated with machine learning frameworks to help developers build and train machine learning models more easily, potentially including automatic feature selection and parameter tuning.
-- Code style enforcement: Kosuke could be used to enforce code style guidelines, potentially including checking for indentation, naming conventions, and other best practices.
-- Real-time code review: Kosuke could be integrated with code editors to provide real-time feedback and suggestions as developers write code, helping catch errors and improve code quality as it's being written.
-- Code similarity analysis: Kosuke could be used to identify code that is similar or identical across different parts of a codebase, potentially helping reduce redundancy and improve maintainability.
-- Integration with testing frameworks: Kosuke could be integrated with popular testing frameworks to help generate test cases and identify areas of code that are particularly prone to errors.
-- Integration with project management tools: Kosuke could be integrated with project management tools like Jira or Trello to help manage tasks and track progress.
+This project is licensed under the MIT License.
