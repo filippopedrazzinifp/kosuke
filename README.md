@@ -1,8 +1,5 @@
 # Kosuke
 
-<h1 style="font-size: 2.5rem; margin-bottom: 1rem; color: #8BC34A;">Kosuke: Asynchronous Code Assistant</h1>
-<p style="font-size: 1.2rem; line-height: 1.5;margin-bottom: 1rem;">Revolutionizing Software Development with AI</p>
-
 > Are you a better Software Engineer than ChatGPT?
 
 Kosuke is an asynchronous code assistant that can perform code reviews, analyze entire codebases, and generate descriptive changelogs for marketing purposes. It's designed to help developers improve their code quality and productivity.
@@ -29,6 +26,13 @@ GITLAB_ACCESS_TOKEN=
 GITLAB_BRANCH_NAME=
 GITLAB_RELEASE_BRANCH_NAME=
 GITLAB_PROJECT_NAME=
+
+# Github
+# ------------------------------------------------------------------------------
+GITHUB_ACCESS_TOKEN=
+GITHUB_PROJECT_NAME=
+GITHUB_BRANCH_NAME=
+GITHUB_RELEASE_BRANCH_NAME=
 
 # General
 # ------------------------------------------------------------------------------
@@ -78,21 +82,33 @@ This project is licensed under the MIT License.
 
 ## Roadmap & Ideas
 
-* Integrate Github
-* Build landing page using ghost
+* Integrate GitHub
+* Handle all the different types of changes
+    * File deleted
+    * File created
+    * File changed
+* Similarity search for pinecone based on score
+* Don't restrict on django, but include python in general
+* Create GitHub action to run tests
+* Fine tune codebase with issues and code
+* Create and run test cases
 
+---
+
+* Build landing page using ghost
 * Automated testing and bug tracking (merge request)
     * Automatically create test cases
     * Automatically check for bugs
 * Extract design guidelines from Picture
 * Build a landing page with Ghost
 * Update the documentation based on the commits - define the default framework. Read the docs?
-* Fine tune using tickets and code
 * Build Django auth with chatgpt
     * Include serpapis and content online to generate the response
 * Code migration
     * Translate a codebase from one framework to another one
 * Fetch latest requirements version when generating code
+
+---
 
 - Security analysis: Kosuke could be extended to perform security analysis on code, including checking for common vulnerabilities and suggesting improvements to prevent attacks.
 - Code refactoring: Kosuke could be used to help refactor code, including identifying redundant or poorly structured code and suggesting better alternatives.

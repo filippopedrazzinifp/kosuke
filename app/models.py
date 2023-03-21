@@ -1,3 +1,5 @@
+import logging
+
 import pinecone
 import tiktoken
 from langchain.chains import LLMChain
@@ -9,6 +11,8 @@ from langchain.text_splitter import TokenTextSplitter
 from langchain.vectorstores import Pinecone
 
 from app import settings
+
+logger = logging.getLogger(__name__)
 
 
 def get_tokenizer():
@@ -28,7 +32,10 @@ def get_vectorstore():
 
 def init_pinecone():
     pinecone.init(api_key=settings.PINECONE_API_KEY, environment="us-east-1-aws")
-    pinecone.delete_index(settings.PINECONE_INDEX_NAME)
+    try:
+        pinecone.delete_index(settings.PINECONE_INDEX_NAME)
+    except pinecone.core.client.exceptions.NotFoundException:
+        logger.info("Index not found.")
     Pinecone.from_documents(
         [Document(page_content="Hello World")],
         OpenAIEmbeddings(),

@@ -1,5 +1,5 @@
 from app import models, settings
-from app.clients import gitlab
+from app.clients import github, gitlab
 
 
 def get_gitlab_client():
@@ -10,7 +10,25 @@ def get_gitlab_client():
     )
 
 
+def get_github_client():
+    return github.GithubClient(
+        settings.GITHUB_ACCESS_TOKEN,
+        settings.GITHUB_PROJECT_NAME,
+        settings.GITHUB_BRANCH_NAME,
+    )
+
+
+def get_git_client():
+    if settings.GITLAB_ACCESS_TOKEN is not None:
+        return get_gitlab_client()
+    elif settings.GITHUB_ACCESS_TOKEN is not None:
+        return get_github_client()
+    else:
+        raise ValueError("No git client configured")
+
+
 def filter_files(files, framework):
+    python_files = [f for f in files if f["path"].endswith(".py")]
     if framework == "django":
         exclude_patterns = [
             "__init__.py",
@@ -26,10 +44,10 @@ def filter_files(files, framework):
         ]
         return [
             file
-            for file in files
+            for file in python_files
             if all(pattern not in file["path"] for pattern in exclude_patterns)
         ]
-    return files
+    return python_files
 
 
 def reduce_number_of_docs(docs):
