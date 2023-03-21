@@ -75,7 +75,7 @@ def comment_pull_requests():
     for pr in pull_requests:
         if git_client.can_comment(pr):
             changes = "\n".join(
-                [change["diff"] for change in git_client.get_changes(pr)]
+                [change["diff"] for change in git_client.get_pull_request_changes(pr)]
             )
             try:
                 message = chain_code.run(changes=changes)
@@ -102,7 +102,9 @@ def index_code_base():
     git_client = utils.get_git_client()
     files = git_client.get_files()
 
-    for file in files:
+    filtered_files = utils.filter_files(files, "django")
+
+    for file in filtered_files:
         file_content = git_client.get_file_content(file_path=file["path"])
         file_content = f"{file['path']} \n {file_content}"
         doc = Document(page_content=file_content, metadata={"file_path": file["path"]})

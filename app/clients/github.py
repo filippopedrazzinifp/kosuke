@@ -79,7 +79,7 @@ class GithubClient(git.GitClient):
             return True
 
     def get_pull_request_changes(self, pr):
-        return pr.get_files()
+        return [{"diff": file.patch} for file in pr.get_files()]
 
     def comment_pull_request(self, pr, message):
         issue = pr.as_issue()
