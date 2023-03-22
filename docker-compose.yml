@@ -2,11 +2,18 @@ version: "3"
 
 services:
 
-  bot:
+  code_reviwer:
+    &base
     build:
       context: .
       dockerfile: ./docker/bot/Dockerfile
-    container_name: bot
+    container_name: code_reviwer
     platform: linux/x86_64
+    command: python main.py --task code_review
     env_file:
       - .env
+
+  index_code_base:
+    <<: *base
+    container_name: index_code_base
+    command: python main.py --task index_code_base

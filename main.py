@@ -21,16 +21,20 @@ def main():
     elif args.task == "change_log":
         services.generate_change_log(args.since_date)
     elif args.task == "index_code_base":
-        services.index_code_base()
+        logger.info("Started job for indexing code base.")
+        while True:
+            services.index_code_base()
+            time.sleep(60 * 60 * 3)  # 3h
     elif args.task == "init_pinecone":
         models.init_pinecone()
     elif args.task == "chat":
         response = services.generate_response(args.question)
         print(response)
     elif args.task == "code_review":
+        logger.info("Started job for reviewing code.")
         while True:
             services.comment_pull_requests()
-            time.sleep(60)
+            time.sleep(60)  # 1m
     else:
         raise ValueError("Invalid task.")
 
