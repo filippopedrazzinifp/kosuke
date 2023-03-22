@@ -44,6 +44,13 @@ BOT_NAME=
 ```bash
 docker-compose up --build -d
 ```
+
+3. Stop the app
+
+```bash
+docker-compose down
+```
+
 ## One shot commands available
 
 Kosuke provides several one-shot commands that you can use to perform different tasks. Here's a list of available commands:
